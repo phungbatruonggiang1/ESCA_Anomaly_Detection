@@ -237,7 +237,7 @@ class ModelTrainer():
                     self._update_metrics(losses_dict)
                     # get metrics value into list of tuples format
                     metrics_value = self._get_metrics()
-                    self._write_chart_files(metrics_value)
+                    # self._write_chart_files(metrics_value)
                     # update progress bar
                     progress_bar.add(feature.shape[0], values=metrics_value)
                     # saving info
