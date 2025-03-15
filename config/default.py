@@ -3,7 +3,7 @@ from yacs.config import CfgNode as CN
 _C = CN()
 
 _C.PREPROCESS = CN()
-_C.PREPROCESS.TYPE = 'mel'   # gamma or mels
+_C.PREPROCESS.TYPE = 'gamma'   # gamma or mels
 _C.PREPROCESS.AUDIO_LEN = 2   # second
 _C.PREPROCESS.SEGMENT_LEN = 2  # second
 _C.PREPROCESS.SAMPLE_PER_FILE = 200
