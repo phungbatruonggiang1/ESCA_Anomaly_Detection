@@ -107,7 +107,9 @@ def extract_mbe(_y, _sr, _nfft, _nb_mel):
     """
 
     # Calculate Power Spectrum: spec = |STFT(y)|
-    spec, n_fft = librosa.core.spectrum._spectrogram(y=_y, n_fft=_nfft, hop_length=_nfft//2, power=1)   # noqa: E501
+    # spec, n_fft = librosa.core.spectrum._spectrogram(y=_y, n_fft=_nfft, hop_length=_nfft//2, power=1)   # noqa: E501
+    spec = librosa.stft(y=_y, n_fft=_nfft, hop_length=_nfft//2)
+    n_fft = _nfft
     # Calculate Filter Banks (FBs)
     mel_basis = librosa.filters.mel(sr=_sr, n_fft=_nfft, n_mels=_nb_mel)
     # Apply FBs to the Power Spectrum
