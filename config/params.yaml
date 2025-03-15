@@ -6,8 +6,8 @@ DATASET:
     # TEST: '/home/thanhho/SPARC/ESCA/Code/Data/dev_data_fan/fan/source_test/Normal'
 
 TRAINING: 
-  SAVE_PATH : './Results/base_training_test'
-  EPOCH : 10
+  SAVE_PATH : './Results/base_training_gear'
+  EPOCH : 81
 
 TRANSFER_LEARNING: 
   EPOCH : 81
