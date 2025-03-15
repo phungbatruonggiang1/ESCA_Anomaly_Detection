@@ -51,8 +51,8 @@ def segmentation(src, dst, length=10):
 if __name__ == '__main__':
     # sources and destinations are folders that contain audio files
     # please specify the path to these folder in absolute path
-    sources = []
-    destinations = []
+    sources = ["/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/gear/Data_Predictive_Maintainance/abnormal/abnormal_gear"]
+    destinations = ["/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/data_gear/anomaly"]
     duration = 2
 
     for src, dst in zip(sources, destinations):

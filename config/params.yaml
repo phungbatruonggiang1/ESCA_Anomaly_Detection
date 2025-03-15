@@ -1,8 +1,8 @@
 DATASET:
   PATH:
-    TFRECORDS : ['/home/haiminh/esca/ESCA_Anomaly_Detection/data/new1']
-    NORMAL : '/home/haiminh/esca/ESCA_Anomaly_Detection/dataset/normal'
-    ANOMALY : '/home/haiminh/esca/ESCA_Anomaly_Detection/dataset/anomaly'
+    TFRECORDS : ['/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/dataset']
+    NORMAL : '/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/data_gear/normal'
+    ANOMALY : '/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/data_gear/anomaly'
     # TEST: '/home/thanhho/SPARC/ESCA/Code/Data/dev_data_fan/fan/source_test/Normal'
 
 TRAINING: 
