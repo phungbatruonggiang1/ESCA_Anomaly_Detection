@@ -19,6 +19,8 @@ from config import update_config, get_cfg_defaults
 from helper.parser import arg_parser 
 from helper.audio_cleanup import clean_up
 import psutil
+from core.Models.vq_vae import VQ_VAE
+
 
 
 def testing(cfg = None, eval=None):
@@ -32,7 +34,7 @@ def testing(cfg = None, eval=None):
     log_dir = cfg.TRANSFER_LEARNING.SAVE_PATH if cfg.REALTIME.TRANSFER_LEARNING  else cfg.TRAINING.SAVE_PATH
     model_name = cfg.MODEL.TYPE
     metric_file = join(log_dir,'save_parameter','metrics_detail.json')
-    model = load_model(join(log_dir,'saved_model',model_name))
+    model = load_model(join(log_dir,'saved_model',model_name + '.keras'), custom_objects={'VQ_VAE': VQ_VAE})
 
     with open(metric_file, 'r') as f:
         metric = json.load(f)
@@ -74,13 +76,10 @@ def testing(cfg = None, eval=None):
     with open(csv_file, 'w') as file:
         csv_writer = csv.DictWriter(file, fieldnames=field_names)
         csv_writer.writeheader()
-
     # run another subprocess to read from the csv file and draw graph dynamically
-    plotting_graph = join(root, '../helper', 'plotting_graph.py')
-    command = ['python3',plotting_graph, '-th', str(threshold), '-csv', csv_file]
-    graph = subprocess.Popen(command, preexec_fn=setpgrp)
-
-
+        plotting_graph = join(root, '../helper', 'plotting_graph.py')
+        command = ['python3',plotting_graph, '-th', str(threshold), '-csv', csv_file]
+        graph = subprocess.Popen(command, preexec_fn=setpgrp)
     # print('------------------1-----------------------')
 
     try:
@@ -126,7 +125,6 @@ def testing(cfg = None, eval=None):
                 
             except:
                 pass
-
         # print('inferencing end.')
         # wait to input any key
         var = input("Please input any key.")

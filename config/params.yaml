@@ -1,12 +1,12 @@
 DATASET:
   PATH:
-    TFRECORDS : ['/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/dataset']
-    NORMAL : '/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/data_gear/normal'
-    ANOMALY : '/home/gianghandsome/ESCA/ESCA_Anomaly_Detection/data_gear/anomaly'
-    # TEST: '/home/thanhho/SPARC/ESCA/Code/Data/dev_data_fan/fan/source_test/Normal'
+    TFRECORDS : ['/home/hai/ESCA_Anomaly_Detection/dataset1']
+    NORMAL : '/home/hai/ESCA_Anomaly_Detection/dev_bearing/bearing/train'
+    ANOMALY : '/home/hai/ESCA_Anomaly_Detection/dev_bearing/bearing/anomaly1'
+    #TEST: '/home/hai/ESCA_Anomaly_Detection/dev_bearing/bearing/test'
 
 TRAINING: 
-  SAVE_PATH : './Results/base_training_gear'
+  SAVE_PATH : '/home/hai/ESCA_Anomaly_Detection/Results/base_training_gear'
   EPOCH : 81
 
 TRANSFER_LEARNING: 
@@ -17,10 +17,10 @@ TRANSFER_LEARNING:
   
 REALTIME: 
   DEVICE_INDEX_INPUT: 14
-  LOG_PATH: '/home/gianghandsome/training/D-ESCA_v2/inference'
-  TRANSFER_LEARNING: True
+  LOG_PATH: '/home/hai/inference'
+  TRANSFER_LEARNING: false 
   IMPORT_FILE : True
-  # MANUAL_THRESHOLD: 0.0
+  # MANUAL_THRESHOLD: 0.0hai
 
 RECORD: 
   DEVICE_INDEX_INPUT: 14

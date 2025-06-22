@@ -91,9 +91,9 @@ def load_audio(filename, mono=True, fs=44100):
         return audio_data, sample_rate
     return None, None
 
-
+"""
 def extract_mbe(_y, _sr, _nfft, _nb_mel):
-    """
+    "
     Extract Mel-band energy
     -----------------------
     Parameters:
@@ -104,7 +104,7 @@ def extract_mbe(_y, _sr, _nfft, _nb_mel):
     -----------------------
     Return:
     Power Spectrum applied FBs
-    """
+     "
 
     # Calculate Power Spectrum: spec = |STFT(y)|
     spec, n_fft = librosa.core.spectrum._spectrogram(y=_y, n_fft=_nfft, hop_length=_nfft//2, power=1)   # noqa: E501
@@ -112,4 +112,17 @@ def extract_mbe(_y, _sr, _nfft, _nb_mel):
     mel_basis = librosa.filters.mel(sr=_sr, n_fft=_nfft, n_mels=_nb_mel)
     # Apply FBs to the Power Spectrum
     return np.log(np.dot(mel_basis, spec))
-    # return np.dot(mel_basis, spec)
+    # return np.dot(mel_basis, spec) 
+    """
+def extract_mbe(_y, _sr, _nfft, _nb_mel):
+    # Compute STFT (complex)
+    stft = librosa.stft(_y, n_fft=_nfft, hop_length=_nfft//2, window='hann', center=True)
+    spec = np.abs(stft)  # amplitude spectrogram (power=1)
+
+    mel_basis = librosa.filters.mel(sr=_sr, n_fft=_nfft, n_mels=_nb_mel)
+
+    mel_spec = np.dot(mel_basis, spec)
+
+    log_mel_spec = np.log(mel_spec + 1e-10)
+
+    return log_mel_spec

@@ -24,7 +24,7 @@ def graph_output(i):
             lw=2,
             ls='--',
             alpha=0.6,
-            label='threshold: 0.00044163066195324063')
+            label='threshold: 0.00015330672613345087')
     ax.legend()
 
     plt.ion()
@@ -44,5 +44,8 @@ if __name__=='__main__':
     fig, ax = plt.subplots(figsize=(8,4))
     globals()['ax'] = ax
 
-    anim = FuncAnimation(fig, graph_output, interval=1000)
+    anim = FuncAnimation(fig, graph_output, interval=1000, save_count=100, cache_frame_data=False)
+    
+ 
+
     plt.show()

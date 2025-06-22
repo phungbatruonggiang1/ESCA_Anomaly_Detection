@@ -71,14 +71,13 @@ class ModelTrainer():
 
     # logger related function
     def _setup_logger(self):
-        # create tensorboard for each data part
+         # create tensorboard for each data part
         log_name = datetime.now().strftime("%Y%m%d-%H%M%S")
         self.tensorboard = {
             'train': tf.summary.create_file_writer(join(self.log_dir, 'logs', log_name, 'train')),
             'val': tf.summary.create_file_writer(join(self.log_dir, 'logs', log_name, 'val')),
             'test': tf.summary.create_file_writer(join(self.log_dir, 'logs', log_name, 'test')),
         }
-
     def _write_train_log(self, preds, labels, metrics, epoch, datapart='train'):
         with self.tensorboard[datapart].as_default(step=epoch):
             histogram = self.post_prc.plot_loss_hist(preds, datapart)
@@ -104,6 +103,26 @@ class ModelTrainer():
             # ROC plot
             roc_curve = self.post_prc.plot_roc_curve(preds, labels)
             tf.summary.image(name='ROC curve',data=self.post_prc.plot_to_image(roc_curve))
+            # metrics is a list of tuple, which is the result from calling _get_metrics
+            for metric in metrics:
+                tf.summary.scalar(metric[0], metric[1])
+    def _write_test_log1(self, preds, labels, metrics, epoch, datapart):
+        with self.tensorboard['test'].as_default(step=epoch):
+            # histogram plot
+            histogram = self.post_prc.plot_loss_hist(preds, 'test')
+            tf.summary.image(name='Loss histogram',data=self.post_prc.plot_to_image1(histogram))
+            # precision-recall plot
+            pr_curve = self.post_prc.plot_pr_curve(preds, labels)
+            tf.summary.image(name='PR curve',data=self.post_prc.plot_to_image1(pr_curve))
+
+            # max, min = self.pre_prc.get_max_min()
+            # # save threshold
+            # self.post_prc.save_threshold(preds, labels, max, min, self.theshold_save_path)
+
+
+            # ROC plot
+            roc_curve = self.post_prc.plot_roc_curve(preds, labels)
+            tf.summary.image(name='ROC curve',data=self.post_prc.plot_to_image1(roc_curve))
             # metrics is a list of tuple, which is the result from calling _get_metrics
             for metric in metrics:
                 tf.summary.scalar(metric[0], metric[1])
@@ -247,6 +266,8 @@ class ModelTrainer():
                 # post processing and update logger                  
                 self.impl_logs[part](preds=np.concatenate(sample_losses), labels=np.concatenate(sample_labels), \
                     metrics=metrics_value, epoch=epoch, datapart=part)
+                if part == 'test' and epoch == 80:
+                    self._write_test_log1(np.concatenate(sample_losses), np.concatenate(sample_labels), metrics_value, epoch, part)
                 if part == 'test':
                     max, min = self.pre_prc.get_max_min()
                     # save threshold
@@ -254,8 +275,7 @@ class ModelTrainer():
                     self.post_prc.save_threshold(np.concatenate(sample_losses), np.concatenate(sample_labels), max, min, self.theshold_save_path)
                 # reset tracker
                 self._reset_metrics()
-
         # save the last checkpoint for now, may need to change later
         # save to SavedModel format
         # self.model.save_weights(join(self.log_dir, 'saved_model', 'last_epoch'))
-        self.model.save(join(self.log_dir, 'saved_model', self.model_name))
+        self.model.save(join(self.log_dir, 'saved_model', self.model_name + '.keras'))

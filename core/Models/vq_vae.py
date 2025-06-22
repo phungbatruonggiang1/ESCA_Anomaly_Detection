@@ -1,7 +1,6 @@
 from tensorflow.keras import layers, Model, regularizers
 from tensorflow import random_uniform_initializer, Variable, shape, reshape, one_hot, matmul, reduce_mean, stop_gradient, reduce_sum, argmin   # noqa: E501
 
-
 # encoder model
 class Encoder(Model):
     def __init__(self, kernel_size=(3, 3), intermediate_dim=[32, 64], latent=64, stride=1, padding=True,    # noqa: E501

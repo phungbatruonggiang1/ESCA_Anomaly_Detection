@@ -3,8 +3,8 @@ from yacs.config import CfgNode as CN
 _C = CN()
 
 _C.PREPROCESS = CN()
-_C.PREPROCESS.TYPE = 'gamma'   # gamma or mels
-_C.PREPROCESS.AUDIO_LEN = 2   # second
+_C.PREPROCESS.TYPE = 'mel'   # gamma or mels
+_C.PREPROCESS.AUDIO_LEN = 10   # second
 _C.PREPROCESS.SEGMENT_LEN = 2  # second
 _C.PREPROCESS.SAMPLE_PER_FILE = 200
 _C.PREPROCESS.GAMMA = CN() # define all parameters needed for gamma feature extraction
@@ -55,18 +55,18 @@ _C.MODEL = CN()
 _C.MODEL.TYPE = 'vq_vae' # choose from ['cae', 'vae', 'unconventional_cae', 'vq_vae']
 
 _C.POSTPROCESS = CN()
-_C.POSTPROCESS.PATH_SAVE_THRESHOLD = '/home/thanhho/SPARC/ESCA/Code/train_on_PCv2/Results/'
+_C.POSTPROCESS.PATH_SAVE_THRESHOLD = '/home/hai/ESCA_Anomaly_Detection/Results/'
 
 _C.REALTIME = CN()
 _C.REALTIME.TRANSFER_LEARNING = False
-_C.REALTIME.LOG_PATH = '/home/thanhho/SPARC/ESCA/Code/Data/dev_data_fan/Results/realtime'
+_C.REALTIME.LOG_PATH = '/home/hai/inference'
 _C.REALTIME.MANUAL_THRESHOLD = None
 _C.REALTIME.RUNTIME = 1000
 _C.REALTIME.DEVICE_INDEX_INPUT = 0
 _C.REALTIME.SECOND = 2
 _C.REALTIME.CHANNELS = 1
 _C.REALTIME.SAMPLING_RATE = 44100
-_C.REALTIME.IMPORT_FILE = False
+_C.REALTIME.IMPORT_FILE = True 
 
 _C.RECORD = CN()
 # _C.RECORD.DATASET_MODE = True
